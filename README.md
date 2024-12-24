@@ -1,15 +1,19 @@
 # MyRise
 Arch Linux, Hyprland configuration, dotfiles
 
-System apps
+System packages
 ```
-base linux linux-firmware iwd dhcpcd sudo
+base linux linux-firmware iwd dhcpcd sudo git debugedit fakeroot make cmake gcc
 ```
-Gui system apps
+Gui system packages
 ```
 hyprland foot wofi
 ```
-User apps
+AUR packages
+```
+yay
+```
+User packages
 ```
 firefox fastfetch cpufetch bpytop
 ```
