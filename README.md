@@ -25,7 +25,7 @@ firefox fastfetch cpufetch bpytop
 ### Auidio
 Install pulsewire
 ```console
-pacman -S pipewire pipewire-audio pipewire-pulse
+pacman -S pipewire pipewire-audio pipewire-pulse sof-firmware
 ```
 Then enable and start as user unit
 ```console
