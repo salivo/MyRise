@@ -3,7 +3,7 @@ Arch Linux, Hyprland configuration, dotfiles
 
 System packages
 ```
-base linux linux-firmware iwd dhcpcd sudo git debugedit fakeroot make cmake gcc
+base linux linux-firmware iwd dhcpcd sudo git debugedit fakeroot make cmake gcc jq
 ```
 Gui system packages
 ```
