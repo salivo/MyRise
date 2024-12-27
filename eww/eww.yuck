@@ -1,0 +1,126 @@
+;;widgets
+(defwidget bar []
+    (centerbox :orientation "h"
+        (leftside)
+        (center)
+        (rightside)
+    )
+)
+
+(defwidget leftside []
+    (box
+    :class "workspaces"
+    :orientation "h"
+    :halign "start"
+        (music)
+    )
+)
+
+(defwidget center []
+    (box
+    :class "center"
+    :orientation "h"
+    :space-evenly false
+    :halign "center"
+        time
+    )
+)
+
+(defwidget rightside []
+    (box
+    :class "rightside"
+    :orientation "h"
+    :space-evenly false
+    :halign "end"
+    :spacing 15
+        (wifi)
+        (battery)
+        (label :class "menu-icon" :text "")
+    )
+)
+
+
+(defwidget music []
+    (button
+    :onclick "playerctl play-pause"
+        (label :class "music" :text {music != "" ? "${music}" : ""})
+    )
+)
+
+(defwidget wifi []
+
+  (label :class "wifi-icon" :tooltip "${round(wifi.level * 100 / 70, 0)}%"
+    :text "${wifi.status == 1 ?
+        wifi.internet == 1 ?
+        wifi.level < 14 ? "󰤯" :
+        wifi.level < 28 ? "󰤟" :
+        wifi.level < 42 ? "󰤢" :
+        wifi.level < 56 ? "󰤥" : "󰤨"
+        :
+        wifi.level < 14 ? "󰤫" :
+        wifi.level < 28 ? "󰤠" :
+        wifi.level < 42 ? "󰤣" :
+        wifi.level < 56 ? "󰤦" : "󰤩"
+    : "󰤮"}")
+)
+
+(defwidget battery []
+  (box :class "battery" :space-evenly "false"
+    (label :class "battery-icon"  :tooltip "${battery == "Full" ? "Full" : "${round(EWW_BATTERY.BAT0.capacity, 0)}%"}"
+    :text "${
+        battery == "Charging" ?
+             EWW_BATTERY.BAT0.capacity < 10 ? "󰢟" :
+ 	         EWW_BATTERY.BAT0.capacity < 20 ? "󰢜" :
+ 	         EWW_BATTERY.BAT0.capacity < 30 ? "󰂇" :
+             EWW_BATTERY.BAT0.capacity < 40 ? "󰂈" :
+             EWW_BATTERY.BAT0.capacity < 50 ? "󰢝" :
+             EWW_BATTERY.BAT0.capacity < 60 ? "󰂉" :
+         	 EWW_BATTERY.BAT0.capacity < 70 ? "󰢞" :
+           	 EWW_BATTERY.BAT0.capacity < 80 ? "󰂊" :
+       		 EWW_BATTERY.BAT0.capacity < 90 ? "󰂋" : "󰂅"
+        :battery == "Full" ? "󱟢" :
+             EWW_BATTERY.BAT0.capacity < 10 ? "󰁺" :
+	         EWW_BATTERY.BAT0.capacity < 20 ? "󰁻" :
+	         EWW_BATTERY.BAT0.capacity < 30 ? "󰁼" :
+             EWW_BATTERY.BAT0.capacity < 40 ? "󰁽" :
+             EWW_BATTERY.BAT0.capacity < 50 ? "󰁾" :
+             EWW_BATTERY.BAT0.capacity < 60 ? "󰁿" :
+        	 EWW_BATTERY.BAT0.capacity < 70 ? "󰂀" :
+          	 EWW_BATTERY.BAT0.capacity < 80 ? "󰂁" :
+      		 EWW_BATTERY.BAT0.capacity < 90 ? "󰂂" : "󰁹"
+        }")
+    )
+)
+
+
+;;Listeners
+
+(defpoll wifi :interval "10s" :initial "{}"
+    "bash ~/.config/eww/scripts/wifi"
+)
+
+(deflisten music :initial ""
+    "playerctl --follow metadata --format '{{ artist }} - {{ title }}' || true"
+)
+
+(defpoll time :interval "10s"
+    "date '+%H:%M'"
+)
+
+(defpoll battery :interval "60s" :initial ""
+    "cat /sys/class/power_supply/BAT0/status"
+)
+
+(defwindow bar
+:monitor 0
+:exclusive true
+:windowtype "dock"
+:geometry (geometry
+    :x "0%"
+    :y "0%"
+    :width "100%"
+    :height "8px"
+    :anchor "bottom center"
+)
+    (bar)
+)

@@ -1,0 +1,28 @@
+* {
+    all: unset; // Unsets everything so you can style everything from scratch
+    font-size: 10px;
+}
+// Global Styles
+.bar {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 0;
+}
+.rightside {
+}
+.wifi-icon {
+}
+tooltip {
+    border-radius: 4px;
+    background-color: #b0b4bc;
+    color: #090909;
+}
+tooltip label {
+    color: #090909;
+}
+.menu-icon {
+    margin: 1 14 1 -4;
+}
+.music {
+    padding: 1 0 1 10;
+}
