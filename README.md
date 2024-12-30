@@ -48,6 +48,7 @@ Just install `nemo-fileroller`
 sudo pacman -S nemo-fileroller
 ```
 ### BIOS update
+> For more info see [Arch Wiki](https://wiki.archlinux.org/title/Flashing_BIOS_from_Linux#Lenovo)
 - Download `.exe` from [official Lenovo Website](https://pcsupport.lenovo.com/cz/cs/products/laptops-and-netbooks/5-series/ideapad-pro-5-14irh8/downloads/driver-list/component?name=BIOS%2FUEFI&id=5AC6A815-321D-440E-8833-B07A93E0428C)
 - Then extract all from `DOWNLOADED.exe` with '7zip' package
 ```console
