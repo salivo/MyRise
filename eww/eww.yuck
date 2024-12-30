@@ -124,3 +124,46 @@
 )
     (bar)
 )
+
+
+
+
+
+
+(defwindow volume
+:monitor 0
+:exclusive "false"
+:geometry
+    (geometry
+        :x "0%"
+        :y "10%"
+        :width "200px"
+        :height "50px"
+        :anchor "bottom center"
+    )
+    (box :class "volume-container" :halign "center" :space-evenly "false"
+   	    (button :onclick "pactl -- set-sink-mute @DEFAULT_SINK@ toggle && bash ~/.config/hypr/scripts/show_volume &"
+   	        (label :class "${muteval == 1 ? 'volume-icon-muted' : 'volume-icon'}" :text "${muteval == 1 ? "" : ""}")
+   	    )
+   	     (scale :min 0 :max 100 :value volumeval :onchange "pactl set-sink-volume @DEFAULT_SINK@ {}% && bash ~/.config/hypr/scripts/show_volume &")
+    )
+)
+(defvar muteval 0)
+(defvar volumeval "pactl get-sink-volume @DEFAULT_SINK@ | awk '/front-left/ {print $5}' | awk -F% '{print $1}'")
+
+
+(defwindow bright
+  :monitor 0
+  :geometry (geometry :x "0%"
+                      :y "10%"
+                      :width "200px"
+                      :height "50px"
+                      :anchor "bottom center"
+                      )
+  :exclusive "false"
+  (box :class "bright-container" :halign "center" :space-evenly "false"
+   	  (label :class "bright-icon" :text "󰃠")
+   	  (scale :min 0 :max 100 :value brightval :onchange "brightnessctl s {}% && bash ~/.config/hypr/scripts/show_bright &")
+  )
+)
+(defvar brightval 10)
