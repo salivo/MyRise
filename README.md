@@ -1,20 +1,20 @@
 # MyRise
 Arch Linux, Hyprland configuration, dotfiles
 IdeaPad Pro 5 14IRH8, i7-13700H,
-System packages
+### System packages
 ```
 base linux linux-firmware iwd dhcpcd sudo git debugedit fakeroot make cmake gcc
 jq wl-clipboard slurp grim imagemagick qt5-wayland qt6-wayland intel-ucode
 ```
-Gui system packages
+### Gui system packages
 ```
 hyprland foot wofi hyprpicker hyprlock
 ```
-AUR packages
+### AUR packages
 ```
 yay
 ```
-User packages
+### User packages
 ```
 firefox fastfetch cpufetch bpytop
 ```
