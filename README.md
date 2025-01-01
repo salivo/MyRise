@@ -1,5 +1,12 @@
 # MyRise
-Arch Linux, Hyprland configuration, dotfiles
+This repository is for setting up my configuration on another PC.
+However, you can also use it as an example for your own setup.
+Enjoy, and feel free to ask me any questions about my configuration!
+
+## My main system
+### software
+Arch Linux, Hyprland,
+### hardware
 IdeaPad Pro 5 14IRH8, i7-13700H,
 ### System packages
 ```
@@ -22,7 +29,7 @@ firefox fastfetch cpufetch bpytop
 ### links
   [Awesome Hyprland](https://github.com/hyprland-community/awesome-hyprland?tab=readme-ov-file#awesome-hyprland)
 
-## Trobles
+## Manuals
 ### Auidio
 Install pulsewire
 ```console
@@ -71,3 +78,4 @@ fwupdtool get-devices
 # fwupdtool install-blob WinXXXXXXXX.fd DEVICE-ID
 ```
 > May sure, that you have at least 70% charged battery
+###
