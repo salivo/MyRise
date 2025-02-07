@@ -1,0 +1,35 @@
+#!/bin/bash
+
+TIMEOUT=2
+
+
+timestamp_file="/tmp/volume_bright_time_tmp"
+
+bright=$(brightnessctl | awk -F '[()]' '/Current brightness/{gsub("%", "", $2); print $2}')
+
+echo $(date +%s) > "$timestamp_file"
+
+eww update brightval=$bright
+
+
+get_stored_timestamp() {
+    if [ -f "$timestamp_file" ]; then
+        cat "$timestamp_file"
+    else
+        echo 0
+    fi
+}
+
+if ! eww active-windows | grep  -q  'bright'; then
+    eww o bright
+    while true; do
+        sleep 1
+        timenow=$(date +%s)
+        laststart=$(get_stored_timestamp)
+        echo "wait"
+        if (( timenow - laststart >= TIMEOUT)); then
+            eww c bright
+            exit 0
+        fi
+    done
+fi

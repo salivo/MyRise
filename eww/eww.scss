@@ -74,3 +74,36 @@ scale trough {
     padding-right: 26px;
     padding-left: 6px;
 }
+
+.menu {
+    padding: 0;
+    border-top-left-radius: 30px;
+}
+.menu-container {
+    background-color: #000000;
+    padding: 30;
+}
+.menu-startup-icon {
+    color: #b0b4bc;
+    font-size: 30px;
+}
+.menu-startup-box {
+    padding: 10;
+    border-radius: 15px;
+}
+.menu-startup-button {
+    border-radius: 15px;
+    background-color: #101010;
+    transition: background-color 0.2s;
+}
+.menu-startup-button:hover {
+    border-radius: 15px;
+    background-color: #0a0a0a;
+    transition: background-color 0.2s;
+}
+.tablet-icon {
+    margin: 0 0 0 -12;
+}
+.menu-startup-text {
+    font-size: 12px;
+}

@@ -1,0 +1,11 @@
+# Styles
+background-color=#000000AA
+border-color=#151515AA
+border-radius=10
+padding=10
+
+# Timeout
+default-timeout=5000
+
+# Actions
+on-notify=exec ffplay -nodisp -autoexit -v quiet ~/.config/mako/notify.mp3

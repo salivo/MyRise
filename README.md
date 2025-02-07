@@ -3,11 +3,11 @@ This repository is for setting up my configuration on another PC.
 However, you can also use it as an example for your own setup.
 Enjoy, and feel free to ask me any questions about my configuration!
 
-## My main system
+## My system
 ### software
 Arch Linux, Hyprland,
 ### hardware
-IdeaPad Pro 5 14IRH8, i7-13700H,
+IdeaPad Pro 5 14IRH8, i7-13700H, Nvidia RTX 3050
 ### System packages
 ```
 base linux linux-firmware iwd dhcpcd sudo git debugedit fakeroot make cmake gcc
@@ -30,7 +30,12 @@ firefox fastfetch cpufetch bpytop
   [Awesome Hyprland](https://github.com/hyprland-community/awesome-hyprland?tab=readme-ov-file#awesome-hyprland)
 
 ## Manuals
-### Auidio
+### Displays
+install `nwg-displays`
+```console
+pacman -S nwg-displays
+```
+### Audio
 Install pulsewire
 ```console
 pacman -S pipewire pipewire-audio pipewire-pulse sof-firmware wireplumber
@@ -49,10 +54,19 @@ Set dark theme
 ```console
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 ```
-### Nemo extract here
+## Nemo
+### default file browser
+```console
+xdg-mime default nemo.desktop inode/directory application/x-gnome-saved-search
+```
+### extract here
 Just install `nemo-fileroller`
 ```console
 sudo pacman -S nemo-fileroller
+```
+### preview
+```console
+pacman -S nemo-preview
 ```
 ### BIOS update
 > For more info see [Arch Wiki](https://wiki.archlinux.org/title/Flashing_BIOS_from_Linux#Lenovo)
@@ -78,4 +92,36 @@ fwupdtool get-devices
 # fwupdtool install-blob WinXXXXXXXX.fd DEVICE-ID
 ```
 > May sure, that you have at least 70% charged battery
-###
+### Auto starting Hyprland
+I do not need multiple users so I want insted use hyprlock as login screen
+so by refer to [this](https://wiki.archlinux.org/title/Getty#Virtual_console), is posible to do autologin on tty1
+then [here](https://wiki.hyprland.org/Useful-Utilities/Systemd-start/#in-tty) is how properly start Hyprland
+to autologin to tty1
+edit `autologin.conf` with systemd drop-in file
+```console
+systemctl edit getty@tty1.service --drop-in=autologin
+```
+add this
+```
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty -o '-p -f -- \\u' --noclear --autologin username %I $TERM
+```
+then add it to `.zshrc` or simular based what shell you use
+```
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty -o '-p -f -- \\u' --noclear --autologin username %I $TERM
+```
+### POWER
+#### NVIDIA
+I have nvidia-open and work pretty well I think.
+> To have all power of nvidia enable and start `nvidia-powerd.service`
+
+#### Battery
+[ArchWiki](https://wiki.archlinux.org/title/Laptop/Lenovo#Lenovo)
+
+Iprove battery life, but it goofy idk if it good
+```console
+echo 1 > /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode
+```

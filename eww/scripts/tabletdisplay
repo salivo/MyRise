@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if pgrep -x "wayvnc" > /dev/null; then
+    echo "STOP"
+    pkill -x "wayvnc"
+    adb shell am force-stop com.gaurav.avnc
+    adb reverse --remove tcp:5900
+    hyprctl output remove Tablet
+else
+    echo "START"
+    hyprctl output create headless Tablet
+    wayvnc -o Tablet -g 0.0.0.0 5900 &
+    adb reverse tcp:5900 tcp:5900
+    adb shell am start -n com.gaurav.avnc/.StartupActivity
+fi

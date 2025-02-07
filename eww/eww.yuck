@@ -35,7 +35,10 @@
     :spacing 15
         (wifi)
         (battery)
-        (label :class "menu-icon" :text "")
+        (button
+        :onclick "eww active-windows | grep -q '^menu:' && eww close menu || eww open menu"
+        :class "menu-icon" ""
+        )
     )
 )
 
@@ -167,3 +170,26 @@
   )
 )
 (defvar brightval 10)
+
+(defwindow menu
+:monitor 0
+:exclusive "false"
+:geometry
+    (geometry
+        :x "0%"
+        :y "0%"
+        :width "300px"
+        :height "100px"
+        :anchor "bottom right"
+    )
+    (box :class "menu-container" :halign "left" :space-evenly "false"
+        (button
+        :onclick "bash ~/.config/eww/scripts/tabletdisplay &"
+        :class "menu-startup-button"
+            (box :class "menu-startup-box" :orientation "vertical"
+                (label :class "menu-startup-icon tablet-icon" :text "󰍺" :valign "center")
+                (label :class "menu-startup-text" :text "Connect tablet")
+            )
+        )
+    )
+)

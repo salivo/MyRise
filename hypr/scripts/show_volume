@@ -1,0 +1,38 @@
+#!/bin/bash
+
+TIMEOUT=2
+
+
+timestamp_file="/tmp/volume_menu_time_tmp"
+
+echo $(date +%s) > "$timestamp_file"
+
+volumecmd=$(pactl get-sink-volume @DEFAULT_SINK@ | awk '/front-left/ {print $5}' | awk -F% '{print $1}')
+
+getmutecmd=$(pactl get-sink-mute @DEFAULT_SINK@ | jq -R 'if . == "Mute: no" then 0 else 1 end')
+
+eww update volumeval=$volumecmd
+
+eww update muteval=$getmutecmd
+
+get_stored_timestamp() {
+    if [ -f "$timestamp_file" ]; then
+        cat "$timestamp_file"
+    else
+        echo 0
+    fi
+}
+
+if ! eww active-windows | grep  -q  'volume'; then
+    eww open volume
+    while true; do
+        sleep 1
+        timenow=$(date +%s)
+        laststart=$(get_stored_timestamp)
+        echo "wait"
+        if (( timenow - laststart >= TIMEOUT)); then
+            eww close volume
+            exit 0
+        fi
+    done
+fi

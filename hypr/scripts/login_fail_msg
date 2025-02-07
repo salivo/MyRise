@@ -1,0 +1,40 @@
+#!/bin/bash
+
+# Define fun login fail messages
+declare -a MESSAGES=(
+    ""
+    "Oops! Better luck next time!"
+    "Incorrect password. Are you even trying?"
+    "Hint: Your password isn’t 'password123'."
+    "Login failed. Did you forget it again?"
+    "Wrong password, but nice try!"
+    "Access denied. Maybe tomorrow!"
+    "Close, but no cigar. Try again!"
+    "Nope. That’s not it!"
+    "That’s a solid 0/10 attempt!"
+    "Error: Your keyboard might be broken."
+)
+
+# Check if an argument is provided
+if [ -z "$1" ]; then
+    echo "Usage: $0 <number>"
+    exit 1
+fi
+
+# Get the argument
+ARG=$1
+
+# Check if the argument is a valid number
+if ! [[ "$ARG" =~ ^[0-9]+$ ]]; then
+    echo "Error: Please provide a valid number."
+    exit 1
+fi
+
+# Show message based on the argument
+if [ "$ARG" -eq 0 ]; then
+    echo "${MESSAGES[0]}"
+elif [ "$ARG" -gt 10 ]; then
+    echo "Incorrect password."
+else
+    echo "${MESSAGES[$ARG]}"
+fi
