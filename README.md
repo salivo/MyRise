@@ -109,9 +109,11 @@ ExecStart=-/sbin/agetty -o '-p -f -- \\u' --noclear --autologin username %I $TER
 ```
 then add it to `.zshrc` or simular based what shell you use
 ```
-[Service]
-ExecStart=
-ExecStart=-/sbin/agetty -o '-p -f -- \\u' --noclear --autologin username %I $TERM
+if uwsm check may-start; then
+	clear
+	tput civis
+    exec uwsm start hyprland.desktop >/dev/null 2>&1
+fi
 ```
 ### POWER
 #### NVIDIA
