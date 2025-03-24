@@ -5,7 +5,7 @@ if [ -z "$level" ]; then
 level=0
 fi
 
-status=$(iwctl station wlan0 show | grep -oP '^\s*State\s+\K\S+' | jq -R 'if . == "disconnected" then 0 else 1 end')
+status=$(nmcli -t -f GENERAL.STATE device show wlp0s20f3 | grep -q ":30" && echo 0 || echo 1)
 
 website="www.google.com"
 ping -c 1 $website > /dev/null
