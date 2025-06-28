@@ -15,4 +15,9 @@ else
     internet=0
 fi
 
-echo "{\"level\":$level, \"status\":$status, \"internet\":$internet}" | jq '{level, status, internet}'
+ssid=$(nmcli -t -f active,ssid dev wifi | awk -F: '$1 == "yes" {print $2}')
+if [ -z "$ssid" ]; then
+    ssid="Disconnected"
+fi
+
+echo "{\"level\":$level, \"status\":$status, \"internet\":$internet, \"ssid\":\"$ssid\"}" | jq '{level, status, internet, ssid}'
