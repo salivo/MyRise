@@ -51,21 +51,23 @@
 )
 
 (defwidget wifi []
-
-  (label :class "wifi-icon" :tooltip "📶 ${wifi.ssid} ${round(wifi.level * 100 / 70, 0)}%"
-    :text "${wifi.status == 1 ?
-        wifi.internet == 1 ?
-        wifi.level < 14 ? "󰤯" :
-        wifi.level < 28 ? "󰤟" :
-        wifi.level < 42 ? "󰤢" :
-        wifi.level < 56 ? "󰤥" : "󰤨"
-        :
-        wifi.level < 14 ? "󰤫" :
-        wifi.level < 28 ? "󰤠" :
-        wifi.level < 42 ? "󰤣" :
-        wifi.level < 56 ? "󰤦" : "󰤩"
-    : "󰤮"}")
-)
+    (button
+    :onclick "foot --title float_wifi -e wifitui &"
+        (label :class "wifi-icon" :tooltip "📶 ${wifi.ssid} ${round(wifi.level * 100 / 70, 0)}%"
+        :text "${wifi.status == 1 ?
+            wifi.internet == 1 ?
+            wifi.level < 14 ? "󰤯" :
+            wifi.level < 28 ? "󰤟" :
+            wifi.level < 42 ? "󰤢" :
+            wifi.level < 56 ? "󰤥" : "󰤨"
+            :
+            wifi.level < 14 ? "󰤫" :
+            wifi.level < 28 ? "󰤠" :
+            wifi.level < 42 ? "󰤣" :
+            wifi.level < 56 ? "󰤦" : "󰤩"
+        : "󰤮"}")
+        )
+    )
 
 (defwidget battery []
   (box :class "battery" :space-evenly "false"

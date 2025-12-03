@@ -19,7 +19,7 @@ hyprland foot wofi hyprpicker hyprlock
 ```
 ### AUR packages
 ```
-yay
+yay wifitui
 ```
 ### User packages
 ```
