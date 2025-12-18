@@ -33,6 +33,7 @@
     :space-evenly false
     :halign "end"
     :spacing 15
+        (bluetooth)
         (wifi)
         (battery)
         (button
@@ -52,7 +53,7 @@
 
 (defwidget wifi []
     (button
-    :onclick "foot --title float_wifi -e wifitui &"
+    :onclick "~/.config/hypr/scripts/show_wifi"
         (label :class "wifi-icon" :tooltip "📶 ${wifi.ssid} ${round(wifi.level * 100 / 70, 0)}%"
         :text "${wifi.status == 1 ?
             wifi.internet == 1 ?
@@ -69,8 +70,19 @@
         )
     )
 
+
+(defwidget bluetooth []
+    (button
+    :onclick "~/.config/hypr/scripts/show_bt"
+    :tooltip "${bluetooth.tooltip}"
+    (label :class "bt-icon"
+            :text "${bluetooth.icon}")
+  )
+)
+
 (defwidget battery []
-  (box :class "battery" :space-evenly "false"
+  (button :class "battery" :space-evenly "false"
+  :onclick "~/.config/hypr/scripts/show_bat"
     (label :class "battery-icon"  :tooltip "${EWW_BATTERY.BAT0.status == "Full" ? "Full" : "${round(EWW_BATTERY.BAT0.capacity, 0)}%"}"
     :text "${
         EWW_BATTERY.BAT0.status == "Charging" ?
@@ -111,6 +123,9 @@
 (defpoll time :interval "10s"
     "date '+%H:%M'"
 )
+
+(defpoll bluetooth :interval "2s" "~/.config/eww/scripts/bt")
+
 
 (defwindow bar
 :monitor 0

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+TITLE="float_side"
+
+PID=$(pgrep -f "foot --title $TITLE")
+
+foot --title $TITLE -e bluetui &
+
+kill $PID

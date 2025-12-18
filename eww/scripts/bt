@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Check if Bluetooth is powered on
+if bluetoothctl show | grep -q "Powered: yes"; then
+    # Check if a device is connected
+    if bluetoothctl info | grep -q "Connected: yes"; then
+        # Grab the raw value (strips brackets). Result might be "90" or "0x5a"
+        BAT_RAW=$(bluetoothctl info | grep "Battery Percentage" | awk '{print $3}' | tr -d '()')
+
+        # Get Device Name for tooltip
+        DEV=$(bluetoothctl info | grep "Name" | cut -d ' ' -f 2-)
+
+        if [ -z "$BAT_RAW" ]; then
+            # Case 1: Connected but no battery info
+            echo "{\"status\": \"connected\", \"icon\": \"󰂱\", \"label\": \"\", \"tooltip\": \"Connected: $DEV\"}"
+        else
+            # Case 2: Connected with battery
+            # $(( ... )) automatically converts 0x HEX to Decimal
+            BAT_DEC=$((BAT_RAW))
+
+            echo "{\"status\": \"connected\", \"icon\": \"󰂱\", \"label\": \"$BAT_DEC%\", \"tooltip\": \"Connected: $DEV ($BAT_DEC%)\"}"
+        fi
+    else
+        # Case 3: On but Disconnected
+        echo "{\"status\": \"on\", \"icon\": \"󰂯\", \"label\": \"\", \"tooltip\": \"Bluetooth On (Disconnected)\"}"
+    fi
+else
+    # Case 4: Powered Off
+    echo "{\"status\": \"off\", \"icon\": \"󰂲\", \"label\": \"\", \"tooltip\": \"Bluetooth Disabled\"}"
+fi
