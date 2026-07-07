@@ -78,6 +78,11 @@ class PowerMenu(App):
     BINDINGS = [
         ("escape", "quit", "Close"),
         ("q", "quit", "Close"),
+        # MAP ARROW KEYS TO FOCUS MOVEMENT
+        ("down", "focus_next", "Next Button"),
+        ("up", "focus_previous", "Prev Button"),
+        ("j", "focus_next", "Next Button"),  # Vim style down
+        ("k", "focus_previous", "Prev Button"),  # Vim style up
     ]
 
     CSS = """
@@ -86,7 +91,7 @@ class PowerMenu(App):
     #battery-container {
         width: 100%;
         height: auto;
-        margin-bottom: 1;
+        margin-bottom: 0;
         margin-top: 2;
         align: center middle;
     }
@@ -98,14 +103,12 @@ class PowerMenu(App):
         margin-bottom: 1;
     }
 
-    /* THE BIG NUMBER */
     Digits {
         width: auto;
         color: #a6e3a1;
         margin-right: 0;
     }
 
-    /* The "%" and Icon */
     #suffix-label {
         color: #a6e3a1;
         text-style: bold;

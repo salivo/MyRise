@@ -6,9 +6,10 @@ if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
 	add-zle-hook-widget -Uz zle-line-init zle_application_mode_start
 	add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
 fi
-
-if uwsm check may-start; then
-	clear
-	tput civis
-    exec uwsm start hyprland.desktop >/dev/null 2>&1
+if command -v uwsm >/dev/null 2>&1; then
+    if uwsm check may-start; then
+    	clear
+    	tput civis
+        exec uwsm start hyprland.desktop >/dev/null 2>&1
+    fi
 fi
