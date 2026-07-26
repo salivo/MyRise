@@ -124,12 +124,13 @@ class PowerMenu(App):
     Button {
         width: 30;
         height: 5;
-        margin: 1 0;
+        margin: 0 0;
         content-align: center middle;
         border: wide #1e1e2e;
     }
 
     .sleep { background: #89b4fa; color: #11111b; }
+    .screen-off { background: #cba6f7; color: #11111b; }
     .reboot { background: #f9e2af; color: #11111b; }
     .off { background: #f38ba8; color: #11111b; }
 
@@ -137,6 +138,7 @@ class PowerMenu(App):
     Button:focus { text-style: bold; border: wide #ffffff; }
 
     .sleep:focus { background: #89b4fa; }
+    .screen-off:focus { background: #cba6f7; }
     .reboot:focus { background: #f9e2af; }
     .off:focus { background: #f38ba8; }
     """
@@ -154,6 +156,7 @@ class PowerMenu(App):
 
         with Vertical(id="buttons"):
             yield Button("󰒲  Sleep", id="sleep", classes="sleep")
+            yield Button("󰍹  Screen Off", id="screen_off", classes="screen-off")
             yield Button("󰜉  Reboot", id="reboot", classes="reboot")
             yield Button("  Power Off", id="off", classes="off")
 
@@ -161,6 +164,8 @@ class PowerMenu(App):
         btn_id = event.button.id
         if btn_id == "sleep":
             os.system("systemctl suspend")
+        elif btn_id == "screen_off":
+            os.system('sleep 0.5 && hyprctl dispatch \'hl.dsp.dpms({action="disable"})\'')
         elif btn_id == "reboot":
             os.system("systemctl reboot")
         elif btn_id == "off":

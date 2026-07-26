@@ -82,3 +82,4 @@ hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd(
 hl.bind(mainMod .. " + i", hl.dsp.exec_cmd("hyprpicker -a"))
 hl.bind(mainMod .. " + l", hl.dsp.exec_cmd("hyprlock"))
 
+hl.bind(mainMod .. " + A", hl.dsp.exec_cmd("cliphist list | wofi -S dmenu | cliphist decode | wl-copy"))

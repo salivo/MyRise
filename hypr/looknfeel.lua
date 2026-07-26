@@ -50,7 +50,11 @@ hl.config({
         force_zero_scaling = true
     },
     misc = {
-        disable_hyprland_logo = true
+        disable_hyprland_logo = true,
+        mouse_move_enables_dpms = true,
+        key_press_enables_dpms = true,
+        session_lock_xray = true,
+        session_lock_blur = true,
     }
 })
 
@@ -120,6 +124,7 @@ local float_side_height = 0.6 * monitor_height / monitor_scale
 hl.window_rule({
     match = { title = "float_side" },
     float = true,
+    monitor = 0,
     size = { float_side_width, float_side_height },
     move = { monitor_width / monitor_scale - float_side_width, monitor_height / monitor_scale - float_side_height },
     pin = true,
